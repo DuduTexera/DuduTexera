@@ -1,47 +1,48 @@
 -- Configurações
-local invulnerabilityEnabled = false -- Ativar ou desativar invulnerabilidade
-local damageBoostEnabled = false -- Ativar ou desativar aumento de dano
-local rapidHitsEnabled = false -- Ativar ou desativar ataques rápidos
+local acertarGolpes = true
+local ganharXP = true
+local causarDano = true
+local sofrerDanoZero = true
 
--- Função para ativar/desativar invulnerabilidade
-function toggleInvulnerability()
-    invulnerabilityEnabled = not invulnerabilityEnabled
-    print("Invulnerabilidade " .. (invulnerabilityEnabled and "ativada" or "desativada"))
-end
-
--- Função para ativar/desativar aumento de dano
-function toggleDamageBoost()
-    damageBoostEnabled = not damageBoostEnabled
-    print("Aumento de dano " .. (damageBoostEnabled and "ativado" or "desativado"))
-end
-
--- Função para ativar/desativar ataques rápidos
-function toggleRapidHits()
-    rapidHitsEnabled = not rapidHitsEnabled
-    print("Ataques rápidos " .. (rapidHitsEnabled and "ativados" or "desativados"))
-end
-
--- Função principal
-function main()
-    while true do
-        if invulnerabilityEnabled then
-            -- Lógica para evitar dano
-            -- Implemente aqui a lógica específica para evitar dano
-        end
-
-        if damageBoostEnabled then
-            -- Lógica para aumentar o dano
-            -- Implemente aqui a lógica específica para aumentar o dano
-        end
-
-        if rapidHitsEnabled then
-            -- Lógica para ataques rápidos
-            -- Implemente aqui a lógica específica para ataques rápidos
-        end
-
-        wait(0.5) -- Aguarda 0.5 segundos antes de verificar novamente
+-- Função para acertar 10 golpes em 1 segundo
+function AcertarGolpes()
+    while acertarGolpes do
+        -- Coloque aqui o código para acertar golpes
+        wait(0.1) -- Aguarde 0.1 segundo entre os golpes
     end
 end
 
--- Chamada da função principal
-main()
+-- Função para ganhar 10000+ pontos de XP a cada inimigo eliminado
+function GanharXP()
+    game.Players.PlayerAdded:Connect(function(player)
+        player.CharacterAdded:Connect(function(character)
+            if ganharXP then
+                -- Coloque aqui o código para conceder XP ao eliminar inimigos
+            end
+        end)
+    end)
+end
+
+-- Função para dar 975+ de dano em qualquer coisa
+function CausarDano()
+    if causarDano then
+        -- Coloque aqui o código para causar dano
+    end
+end
+
+-- Função para sofrer 0 de dano de qualquer coisa
+function SofrerDanoZero()
+    if sofrerDanoZero then
+        -- Coloque aqui o código para evitar sofrer dano
+    end
+end
+
+-- Ativar ou desativar o script
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.P then
+        acertarGolpes = not acertarGolpes
+        ganharXP = not ganharXP
+        causarDano = not causarDano
+        sofrerDanoZero = not sofrerDanoZero
+    end
+end)
